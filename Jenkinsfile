@@ -1,16 +1,11 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.3.3'
-        }
-
-    }
     stages {
-        stage('build') {
-            steps {
-                sh 'mvn --version'
+        stage('Gradle Build') {
+            if (isUnix()) {
+                sh './gradlew clean build'
+            } else {
+                bat 'gradlew.bat clean build'
             }
         }
-
     }
 }
