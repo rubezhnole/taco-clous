@@ -8,10 +8,11 @@ pipeline {
         }
         stage('Test') {
             steps {
-                if (isUnix()) {
-                    sh 'gradle test --info'
-                } else {
-                    bat 'gradle test --info'
+                gradle('test')
+                gradle {
+                    tasks('clean')
+                    tasks('test')
+                    switches('--info')
                 }
             }
         }
