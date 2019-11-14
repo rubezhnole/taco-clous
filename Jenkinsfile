@@ -8,7 +8,11 @@ pipeline {
         }
         stage('Test') {
             steps {
-                './gradlew test'
+                if (isUnix()) {
+                    sh 'gradle test --info'
+                } else {
+                    bat 'gradle test --info'
+                }
             }
         }
         stage('Deploy') {
